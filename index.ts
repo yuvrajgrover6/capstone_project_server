@@ -17,13 +17,14 @@ app.use(cors());
 
 const url = `mongodb://localhost:27017/capstone`;
 
-const conn = mongoose.connect(url, {
+mongoose.connect(url, {
   user: mongoId,
   pass: encodedPassword,
   connectTimeoutMS: 30000,
 });
 
 const mongodbDB = mongoose.connection;
+
 mongodbDB.on("error", (error) => {
   console.error("MongoDB connection error:", error);
 });
