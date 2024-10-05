@@ -12,6 +12,8 @@ const port = process.env.PORT || 3000;
 const mongoId = process.env.MONGO_ID;
 const mongoPassword = process.env.MONGO_PASS || "";
 const encodedPassword = encodeURIComponent(mongoPassword);
+import authRoutes from "./src/modules/auth/routes/authRoutes";
+import donationRoutes from "./src/modules/donation/route/donation_routes";
 
 app.use(cors());
 
@@ -39,6 +41,19 @@ app.get("/", (req: Request, res: Response) => {
 
 app.listen(port, async () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+});
+
+app.get("/", (req: Request, res: Response) => {
+  res.send("Express + TypeScript Server Made by Yuvraj Grover");
+});
+
+const routeConfig = [
+  { base: "/auth", routes: authRoutes },
+  { base: "/donation", routes: donationRoutes },
+];
+
+routeConfig.forEach((route) => {
+  app.use(route.base, route.routes);
 });
 
 export { mongodbDB };
