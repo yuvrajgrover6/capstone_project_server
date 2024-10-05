@@ -2,6 +2,7 @@ import { BaseErrorException } from "../../../core/response_handlers/base_error_e
 import { compare } from "bcryptjs";
 import UserModel from "../../user/route/usermodel";
 import { SuccessResult } from "../../../core/response_handlers/success_response";
+import jwt from "jsonwebtoken";
 
 export default async function (email: string, password: string) {
   const user = await UserModel.findOne({ email });
@@ -22,11 +23,18 @@ export default async function (email: string, password: string) {
       logInfo: null,
       code: 400,
     });
-  }
+  } else {
+    // sign the token
+    const token = jwt.sign(
+      { email: user.email, role: user.type },
+      process.env.JWT_SECRET || "",
+      { expiresIn: "2h" }
+    );
 
-  return new SuccessResult({
-    code: 200,
-    message: "Login success",
-    body: { user },
-  });
+    return new SuccessResult({
+      code: 200,
+      message: "Login success",
+      body: { user, token },
+    });
+  }
 }

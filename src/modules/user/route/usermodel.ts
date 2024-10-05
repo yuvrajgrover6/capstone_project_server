@@ -7,6 +7,7 @@ interface IUserModel {
   password: string;
   photoUrl: string;
   createdAt: Date;
+  type: string;
 }
 
 // create mongodb schema
@@ -19,6 +20,7 @@ const UserSchema = new Schema(
     password: String,
     photoUrl: String,
     createdAt: Date,
+    type: String,
   },
   {
     timestamps: true,
