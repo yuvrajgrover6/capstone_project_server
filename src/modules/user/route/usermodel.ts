@@ -5,8 +5,7 @@ interface IUserModel {
   name: string;
   email: string;
   password: string;
-  photoUrl: string;
-  createdAt: Date;
+  photoUrl?: string;
   type: string;
 }
 
@@ -18,7 +17,7 @@ const UserSchema = new Schema(
     name: String,
     email: String,
     password: String,
-    photoUrl: String,
+    photoUrl: String || null,
     createdAt: Date,
     type: String,
   },

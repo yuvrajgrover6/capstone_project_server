@@ -39,6 +39,8 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });
 
+app.use(express.json());
+
 app.listen(port, async () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });
