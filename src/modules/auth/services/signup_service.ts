@@ -5,11 +5,15 @@ import {
 import { BaseErrorException } from "../../../core/response_handlers/base_error_exception";
 import UserModel from "../../user/route/usermodel";
 import ArtistModel from "../../artist/model/artist_model";
+import { hash } from "bcryptjs";
 
 export async function signup(
   user: any,
   type: string
 ): Promise<SuccessResponse | BaseErrorException> {
+  // store user in user collection in the database
+  const hashed = await hash(user.password, 10);
+  user.password = hashed;
   if (type === "admin") {
     return new SuccessResult({
       code: 200,
@@ -18,6 +22,8 @@ export async function signup(
     });
   } else if (type === "user") {
     const userCreated = await UserModel.create(user);
+
+    // check if user is created
     if (!userCreated) {
       throw new BaseErrorException({
         message: "Failed to create user",
@@ -33,7 +39,11 @@ export async function signup(
       });
     }
   } else {
+    // store artist in artist collection in the database
     const artist = await ArtistModel.create(user);
+
+    // check if artist is created
+
     if (!artist) {
       throw new BaseErrorException({
         message: "Failed to create artist",
@@ -41,7 +51,9 @@ export async function signup(
         logInfo: null,
         code: 400,
       });
-    } else {
+    }
+    // return success response if artist is created
+    else {
       return new SuccessResult({
         code: 200,
         message: "Artist created successfully",
