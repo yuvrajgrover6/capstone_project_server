@@ -14,7 +14,7 @@ const mongoPassword = process.env.MONGO_PASS || "";
 const encodedPassword = encodeURIComponent(mongoPassword);
 import authRoutes from "./src/modules/auth/routes/authRoutes";
 import donationRoutes from "./src/modules/donation/route/donation_routes";
-
+import homepageRoutes from "./src/modules/homepage/routes/homepage_route";
 app.use(cors());
 
 const url = `mongodb://localhost:27017/capstone`;
@@ -52,6 +52,7 @@ app.get("/", (req: Request, res: Response) => {
 const routeConfig = [
   { base: "/auth", routes: authRoutes },
   { base: "/donation", routes: donationRoutes },
+  { base: "/homepage", routes: homepageRoutes },
 ];
 
 routeConfig.forEach((route) => {
