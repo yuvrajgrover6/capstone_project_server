@@ -5,7 +5,7 @@ import { PostModel, type IPost } from "../model/posts_model";
 
 export default async (likeId: string) => {
   const likeDeleted: ILike | null = await LikeModel.findOneAndDelete({
-    _id: likeId,
+    id: likeId,
   });
   const updatedPost: IPost | null = await PostModel.findByIdAndUpdate(
     likeDeleted?.postId,
