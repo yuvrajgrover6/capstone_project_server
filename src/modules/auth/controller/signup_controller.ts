@@ -6,7 +6,7 @@ export default async function (req: Request, res: Response) {
   try {
     const { user, type } = req.body;
 
-    // call login service
+    // call signup service
     const result = await signup(user, type);
 
     // send response
