@@ -7,8 +7,8 @@ interface IPost {
   artistId: string;
   like_count: number;
   comment_count: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const PostSchema = new Schema(
