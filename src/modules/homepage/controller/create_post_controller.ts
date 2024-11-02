@@ -11,7 +11,7 @@ export default async (req: Request, res: Response) => {
   try {
     const token = req.headers.authorization as string;
     checkAuthToken(token);
-    const post: IPost = req.body.post;
+    const post = req.body.post;
     validateData(PostJSONSchema, post);
     const result = await create_post_service(post);
     res.status(result.code).json(result);
