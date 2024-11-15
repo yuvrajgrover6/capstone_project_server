@@ -3,9 +3,30 @@ import { compare } from "bcryptjs";
 import UserModel from "../../user/route/usermodel";
 import { SuccessResult } from "../../../core/response_handlers/success_response";
 import jwt from "jsonwebtoken";
+import ArtistModel from "../../artist/model/artist_model";
 
-export default async function (email: string, password: string) {
-  const user = await UserModel.findOne({ email });
+export default async function (email: string, password: string, type: string) {
+  let user;
+
+  switch (type) {
+    case "admin":
+      user = await UserModel.findOne({ email });
+      break;
+    case "user":
+      user = await UserModel.findOne({ email });
+      break;
+    case "artist":
+      user = await ArtistModel.findOne({ email });
+      break;
+    default:
+      throw new BaseErrorException({
+        message: "Invalid user type",
+        error: "invalid-user-type",
+        logInfo: null,
+        code: 400,
+      });
+  }
+
   if (!user) {
     throw new BaseErrorException({
       message: "User not found",
@@ -26,7 +47,7 @@ export default async function (email: string, password: string) {
   } else {
     // sign the token
     const token = jwt.sign(
-      { email: user.email, role: user.type },
+      { email: user.email, role: type },
       process.env.JWT_SECRET || "",
       { expiresIn: "2h" }
     );
