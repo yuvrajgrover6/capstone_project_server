@@ -2,11 +2,11 @@ import { BaseErrorException } from "../../../core/response_handlers/base_error_e
 import { SuccessResult } from "../../../core/response_handlers/success_response";
 import { CommentModel } from "../model/comments_model";
 
-export default async (pageNumber: string, pageSize: string) => {
+export default async (pageNumber: string, pageSize: string, postId: string) => {
   const page = parseInt(pageNumber) || 1;
   const limit = parseInt(pageSize) || 10;
 
-  const comments = await CommentModel.find()
+  const comments = await CommentModel.find({ postId })
     .limit(limit)
     .skip(limit * (page - 1))
     .sort({ createdAt: -1 });

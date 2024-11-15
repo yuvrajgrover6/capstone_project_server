@@ -2,8 +2,8 @@ import { Schema, model } from "mongoose";
 
 interface IComment {
   id: string;
-  postId: number;
-  userId: number;
+  postId: string;
+  userId: string;
   body: string;
   createdAt: Date;
   updatedAt: Date;
@@ -11,8 +11,8 @@ interface IComment {
 const CommentSchema = new Schema(
   {
     id: { type: String, required: true },
-    postId: { type: Number, required: true },
-    userId: { type: Number, required: true },
+    postId: { type: String, required: true },
+    userId: { type: String, required: true },
     body: { type: String, required: true },
   },
   { timestamps: true }
@@ -22,8 +22,8 @@ const CommentJSONSchema = {
   type: "object",
   properties: {
     id: { type: "string" },
-    postId: { type: "number" },
-    userId: { type: "number" },
+    postId: { type: "string" },
+    userId: { type: "string" },
     body: { type: "string" },
   },
   required: ["postId", "userId", "body"],
