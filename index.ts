@@ -15,6 +15,7 @@ const encodedPassword = encodeURIComponent(mongoPassword);
 import authRoutes from "./src/modules/auth/routes/authRoutes";
 import donationRoutes from "./src/modules/donation/route/donation_routes";
 import homepageRoutes from "./src/modules/homepage/routes/homepage_route";
+import userRoutes from "./src/modules/user/route/user_routes";
 app.use(cors());
 
 const url = `mongodb://localhost:27017/capstone`;
@@ -53,6 +54,7 @@ const routeConfig = [
   { base: "/auth", routes: authRoutes },
   { base: "/donation", routes: donationRoutes },
   { base: "/homepage", routes: homepageRoutes },
+  { base: "/user", routes: userRoutes },
 ];
 
 routeConfig.forEach((route) => {

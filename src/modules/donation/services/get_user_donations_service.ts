@@ -1,6 +1,6 @@
 import { BaseErrorException } from "../../../core/response_handlers/base_error_exception";
 import { SuccessResult } from "../../../core/response_handlers/success_response";
-import UserModel from "../../user/route/usermodel";
+import UserModel from "../../user/model/usermodel";
 import { DonationModel } from "../model/dontation_model";
 
 export default async (email: string, pageNumber: string, pageSize: string) => {

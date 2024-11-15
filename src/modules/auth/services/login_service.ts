@@ -1,6 +1,6 @@
 import { BaseErrorException } from "../../../core/response_handlers/base_error_exception";
 import { compare } from "bcryptjs";
-import UserModel from "../../user/route/usermodel";
+import UserModel from "../../user/model/usermodel";
 import { SuccessResult } from "../../../core/response_handlers/success_response";
 import jwt from "jsonwebtoken";
 import ArtistModel from "../../artist/model/artist_model";
