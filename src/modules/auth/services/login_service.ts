@@ -1,39 +1,27 @@
 import { BaseErrorException } from "../../../core/response_handlers/base_error_exception";
 import { compare } from "bcryptjs";
-import UserModel from "../../user/model/usermodel";
+import UserModel, { type IUserModel } from "../../user/model/usermodel";
 import { SuccessResult } from "../../../core/response_handlers/success_response";
 import jwt from "jsonwebtoken";
-import ArtistModel from "../../artist/model/artist_model";
+import ArtistModel, {
+  type IArtistModel,
+} from "../../artist/model/artist_model";
 
-export default async function (email: string, password: string, type: string) {
-  let user;
+export default async function (email: string, password: string) {
+  let user: IUserModel | IArtistModel | null;
 
-  switch (type) {
-    case "admin":
-      user = await UserModel.findOne({ email });
-      break;
-    case "user":
-      user = await UserModel.findOne({ email });
-      break;
-    case "artist":
-      user = await ArtistModel.findOne({ email });
-      break;
-    default:
-      throw new BaseErrorException({
-        message: "Invalid user type",
-        error: "invalid-user-type",
-        logInfo: null,
-        code: 400,
-      });
-  }
-
+  // find the user in all three models
+  user = await UserModel.findOne({ email });
   if (!user) {
-    throw new BaseErrorException({
-      message: "User not found",
-      error: "user-not-found",
-      logInfo: null,
-      code: 404,
-    });
+    user = await ArtistModel.findOne({ email });
+    if (!user) {
+      throw new BaseErrorException({
+        message: "User not found",
+        error: "user-not-found",
+        logInfo: null,
+        code: 404,
+      });
+    }
   }
 
   const passwordMatch = await compare(password, user.password);
@@ -47,7 +35,7 @@ export default async function (email: string, password: string, type: string) {
   } else {
     // sign the token
     const token = jwt.sign(
-      { email: user.email, role: type },
+      { email: user.email, role: user.type },
       process.env.JWT_SECRET || "",
       { expiresIn: "2h" }
     );

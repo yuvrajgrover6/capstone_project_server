@@ -7,6 +7,7 @@ interface IArtistModel {
   password: string;
   photoUrl: string;
   createdAt: Date;
+  type: string;
 }
 
 // create mongodb schema
@@ -19,6 +20,7 @@ const ArtistSchema = new Schema(
     password: String,
     photoUrl: String,
     createdAt: Date,
+    type: String,
   },
   {
     timestamps: true,
@@ -28,3 +30,4 @@ const ArtistSchema = new Schema(
 const ArtistModel = model<IArtistModel>("Artist", ArtistSchema);
 
 export default ArtistModel;
+export type { IArtistModel };
