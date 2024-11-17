@@ -9,10 +9,7 @@ export default (req: Request, res: Response) => {
   console.log(fileName);
   console.log(filePath);
 
-  const file = path.resolve(
-    __dirname,
-    `../../../uploads/${filePath}/${fileName}`
-  );
+  const file = path.resolve(__dirname, `../../../${path}`);
 
   // Check if the file is a directory
   fs.stat(file, (err, stats) => {
