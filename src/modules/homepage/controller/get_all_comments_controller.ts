@@ -8,7 +8,7 @@ export default async (req: Request, res: Response) => {
     const token = req.headers.authorization as string;
     const pageNumber = req.query.pageNumber as string;
     const pageSize = req.query.pageSize as string;
-    const postId = req.query.postId as string;
+    const postId = req.params.postId as string;
     checkAuthToken(token);
     const result = await get_all_comments_service(pageNumber, pageSize, postId);
     res.status(result.code).json(result);
