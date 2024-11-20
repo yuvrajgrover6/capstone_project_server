@@ -35,7 +35,7 @@ export default async function (email: string, password: string) {
   } else {
     // sign the token
     const token = jwt.sign(
-      { email: user.email, role: user.type },
+      { email: user.email, role: user.type, id: user.id },
       process.env.JWT_SECRET || "",
       { expiresIn: "2h" }
     );
