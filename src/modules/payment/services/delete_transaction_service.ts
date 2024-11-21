@@ -2,10 +2,11 @@ import { BaseErrorException } from "../../../core/response_handlers/base_error_e
 import { SuccessResult } from "../../../core/response_handlers/success_response";
 import { PaymentModel } from "../model/payment_model";
 
-export default async (id: number) => {
-  const deleted = await PaymentModel.deleteOne({ id: id });
+export default async (id: string) => {
+  const Id = parseInt(id);
+  const deleted = await PaymentModel.findByIdAndDelete(Id);
 
-  if (deleted.deletedCount === 0) {
+  if (!deleted) {
     throw new BaseErrorException({
       code: 404,
       message: "Transaction not found",
