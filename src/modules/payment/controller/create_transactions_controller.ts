@@ -8,7 +8,7 @@ export default async (req: Request, res: Response) => {
   try {
     const token = req.headers.authorization as string;
     const transaction = req.body.transaction as IPayment;
-    const { email } = checkAuthToken(token);
+    checkAuthToken(token);
     const result = await create_transaction_service(transaction);
     res.status(result.code).json(result);
   } catch (e) {
