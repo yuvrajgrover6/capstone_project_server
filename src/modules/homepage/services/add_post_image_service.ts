@@ -1,9 +1,9 @@
 import multer from "multer";
 import fs from "fs";
-const profilePicUpload = multer({
+const uploadPostImage = multer({
   storage: multer.diskStorage({
     destination: function (req, file, cb) {
-      const uploadDir = "uploads/profilePice/";
+      const uploadDir = "uploads/posts/";
       if (!fs.existsSync(uploadDir)) {
         fs.mkdirSync(uploadDir, { recursive: true });
       }
@@ -11,7 +11,7 @@ const profilePicUpload = multer({
     },
     filename: function (req, file, cb) {
       const extension = file.mimetype.split("/")[1];
-      cb(null, `${req.params.userId}.${extension}`);
+      cb(null, `${req.params.postId}.${extension}`);
     },
   }),
   fileFilter: (req, file, cb) => {
@@ -22,12 +22,12 @@ const profilePicUpload = multer({
     cb(null, true);
   },
 }).single("file");
-export default profilePicUpload;
+export default uploadPostImage;
 
-export async function generateProfileDownloadLink(userId: string) {
-  const path = `uploads/profilePice/${userId}.jpg`;
+export async function generatePostImageDownloadLink(postId: string) {
+  const path = `uploads/posts/${postId}.jpg`;
   const downloadLink = `${
     process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`
-  }/user/download?name=${userId}&path=${path}`;
+  }/user/download?name=${postId}&path=${path}`;
   return downloadLink;
 }

@@ -7,6 +7,8 @@ import add_like_controller from "../controller/add_like_controller";
 import create_comment_controller from "../controller/create_comment_controller";
 import remove_post_controller from "../controller/remove_post_controller";
 import get_all_likes_controller from "../controller/get_all_likes_controller";
+import add_post_image_controller from "../controller/add_post_image_controller";
+import get_post_image_controller from "../controller/get_post_image_controller";
 
 const router = Router();
 
@@ -19,5 +21,7 @@ router.delete("/deleteComment/:commentId", remove_like_controller);
 router.delete("/deleteLike/:likeId", remove_like_controller);
 router.get("/getComments/:postId", get_all_comments_controller);
 router.get("/getLikes/:postId", get_all_likes_controller);
+router.post("/upload-post-image/:postId", add_post_image_controller);
+router.get("/download", get_post_image_controller);
 
 export default router;
