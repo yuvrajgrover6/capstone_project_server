@@ -7,6 +7,7 @@ interface IPost {
   artistId: string;
   like_count: number;
   comment_count: number;
+  imageUrl: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -19,6 +20,7 @@ const PostSchema = new Schema(
     artistId: { type: String, required: true },
     like_count: { type: Number, required: true },
     comment_count: { type: Number, required: true },
+    imageUrl: { type: String },
   },
   { timestamps: true }
 );

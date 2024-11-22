@@ -5,10 +5,12 @@ import { checkAuthToken } from "../../../core/validator/auth_token";
 import { SuccessResult } from "../../../core/response_handlers/success_response";
 import uploadPostImage, {
   generatePostImageDownloadLink,
+  updatePostImageUrl,
 } from "../services/add_post_image_service";
 export default async (req: Request, res: Response) => {
   try {
     const token = req.headers.authorization as string;
+    const postId: string = req.params.postId as string;
     checkAuthToken(token);
 
     uploadPostImage(req, res, async function (err) {
@@ -16,11 +18,12 @@ export default async (req: Request, res: Response) => {
         return res.status(500).json({ error: err.message || "Upload error" });
       }
 
-      const url = await generatePostImageDownloadLink(req.params.postId);
+      const url = await generatePostImageDownloadLink(postId);
+      const post = await updatePostImageUrl(postId);
       const result = new SuccessResult({
         code: 200,
         message: "Post image uploaded successfully",
-        body: { url },
+        body: { post, url },
       });
       res.status(200).json(result);
     });
