@@ -4,7 +4,7 @@ import upload_profile_pic_controller from "../controller/update_profilePic_contr
 import get_profile_image_controller from "../controller/get_profile_image_service";
 const router = Router();
 
-router.post("/user-details", get_user_details_controller);
+router.post("/userDetails/:userId", get_user_details_controller);
 router.post("/upload-profile-pic/:userId", upload_profile_pic_controller);
 router.get("/download", get_profile_image_controller);
 
