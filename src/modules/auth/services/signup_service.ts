@@ -7,6 +7,8 @@ import UserModel from "../../user/model/usermodel";
 import ArtistModel from "../../artist/model/artist_model";
 import { hash } from "bcryptjs";
 import AdminModel from "../../admin/model/AdminModel";
+import mongoose from "mongoose";
+const randomID = Math.random().toString(36).substring(7);
 
 export async function signup(
   user: any,
@@ -35,7 +37,14 @@ export async function signup(
       body: { admin },
     });
   } else if (type === "user") {
-    const userCreated = await UserModel.create(user);
+    const userCreated = await UserModel.create(
+      {
+        ...user,
+        id: randomID,
+        type: "user",
+      },
+      { new: true }
+    );
 
     // check if user is created
     if (!userCreated) {
@@ -54,7 +63,14 @@ export async function signup(
     }
   } else {
     // store artist in artist collection in the database
-    const artist = await ArtistModel.create(user);
+    const artist = await ArtistModel.create(
+      {
+        ...user,
+        id: randomID,
+        type: "artist",
+      },
+      { new: true }
+    );
 
     // check if artist is created
 
