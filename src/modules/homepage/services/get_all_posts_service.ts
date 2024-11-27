@@ -1,8 +1,9 @@
 import { BaseErrorException } from "../../../core/response_handlers/base_error_exception";
 import { SuccessResult } from "../../../core/response_handlers/success_response";
-import { PostModel } from "../model/posts_model";
+import { LikeModel } from "../model/like_model";
+import { PostModel, type IPost } from "../model/posts_model";
 
-export default async (pageNumber: string, pageSize: string) => {
+export default async (pageNumber: string, pageSize: string, userId: string) => {
   const page = parseInt(pageNumber) || 1;
   const limit = parseInt(pageSize) || 10;
 
@@ -20,9 +21,25 @@ export default async (pageNumber: string, pageSize: string) => {
     });
   }
 
+  const postsAndLikedStatus: postAndLikedStatus[] = [];
+
+  for (const post of posts) {
+    const like = await LikeModel.findOne({ postId: post._id, userId });
+
+    postsAndLikedStatus.push({
+      post,
+      isLikedByUser: like ? true : false,
+    });
+  }
+
   return new SuccessResult({
     code: 200,
     message: "Posts retrieved successfully",
-    body: { posts },
+    body: { postsAndLikedStatus },
   });
 };
+
+interface postAndLikedStatus {
+  post: IPost;
+  isLikedByUser: boolean;
+}

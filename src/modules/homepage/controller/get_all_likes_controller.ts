@@ -12,6 +12,8 @@ export default async (req: Request, res: Response) => {
     const postId = req.params.postId as string;
     const { id } = checkAuthToken(token);
 
+    console.error(pageNumber, pageSize, postId, id);
+
     const result = await get_all_likes_service(
       pageNumber,
       pageSize,

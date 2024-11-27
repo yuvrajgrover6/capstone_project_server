@@ -8,7 +8,7 @@ import ArtistModel from "../../artist/model/artist_model";
 import { hash } from "bcryptjs";
 import AdminModel from "../../admin/model/AdminModel";
 import mongoose from "mongoose";
-const randomID = Math.random().toString(36).substring(7);
+const randomID = Math.random().toString(36).substring(7).toString();
 
 export async function signup(
   user: any,

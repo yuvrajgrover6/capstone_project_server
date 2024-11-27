@@ -17,14 +17,6 @@ export default async (
     .skip(limit * (page - 1))
     .sort({ createdAt: -1 });
 
-  let isLikedByUser;
-  const liked = await LikeModel.findOne({ postId, userId });
-  if (liked) {
-    isLikedByUser = true;
-  } else {
-    isLikedByUser = false;
-  }
-
   if (!likes) {
     throw new BaseErrorException({
       code: 404,
@@ -37,6 +29,6 @@ export default async (
   return new SuccessResult({
     code: 200,
     message: "Comments retrieved successfully",
-    body: { likes, isLikedByUser },
+    body: { likes },
   });
 };

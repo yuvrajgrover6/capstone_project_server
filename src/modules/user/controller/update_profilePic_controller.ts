@@ -11,7 +11,6 @@ export default async (req: Request, res: Response) => {
     checkAuthToken(token);
 
     profilePicUpload(req, res, async function (err) {
-      console.log(req.file);
       if (err) {
         return res.status(500).json({ error: err.message || "Upload error" });
       }

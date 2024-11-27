@@ -5,7 +5,6 @@ import { basicErrorResults } from "../../../core/response_handlers/base_error_ex
 
 export default async function (req: Request, res: Response) {
   try {
-    console.log(req.body);
     const { email, password } = req.body;
     // call login service
     const result = await login(email, password);
@@ -13,7 +12,6 @@ export default async function (req: Request, res: Response) {
     // send response
     res.status(result.code).json(result);
   } catch (e) {
-    console.log(e);
     const error = basicErrorResults(e, "Login failed");
     res.status(error.code).json(error);
   }
