@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
 
 interface IUserModel {
-  id: number;
+  id: string;
   name: string;
   email: string;
   password: string;
@@ -13,7 +13,7 @@ interface IUserModel {
 
 const UserSchema = new Schema(
   {
-    id: Number,
+    id: String,
     name: String,
     email: String,
     password: String,
@@ -26,7 +26,7 @@ const UserSchema = new Schema(
   }
 );
 
-const UserModel = model<IUserModel>("User", UserSchema);
+const UserModel = model<IUserModel>("artist", UserSchema);
 
 export default UserModel;
 

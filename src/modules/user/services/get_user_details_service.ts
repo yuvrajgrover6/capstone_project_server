@@ -3,7 +3,7 @@ import { BaseErrorException } from "../../../core/response_handlers/base_error_e
 import UserModel from "../model/usermodel";
 
 export default async (userId: string) => {
-  const user = await UserModel.findOne({ id: userId });
+  const user = await UserModel.findById(userId);
   if (!user) {
     throw new BaseErrorException({
       code: 404,
