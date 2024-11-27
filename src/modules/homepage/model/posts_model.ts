@@ -7,7 +7,7 @@ interface IPost {
   artistId: string;
   like_count: number;
   comment_count: number;
-  imageUrl: string;
+  imageUrl?: string;
   createdAt: Date;
   updatedAt: Date;
 }
