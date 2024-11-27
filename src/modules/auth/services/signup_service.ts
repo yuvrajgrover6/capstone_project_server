@@ -6,6 +6,7 @@ import { BaseErrorException } from "../../../core/response_handlers/base_error_e
 import UserModel from "../../user/model/usermodel";
 import ArtistModel from "../../artist/model/artist_model";
 import { hash } from "bcryptjs";
+import AdminModel from "../../admin/model/AdminModel";
 
 export async function signup(
   user: any,
@@ -15,10 +16,23 @@ export async function signup(
   const hashed = await hash(user.password, 10);
   user.password = hashed;
   if (type === "admin") {
+    const admin = await AdminModel.create(user);
+
+    // if admin is not created
+    if (!admin) {
+      throw new BaseErrorException({
+        message: "Failed to create admin",
+        error: "failed-to-create-admin",
+        logInfo: null,
+        code: 400,
+      });
+    }
+
+    // return success response if admin is created
     return new SuccessResult({
       code: 200,
       message: "Admin created successfully",
-      body: { user },
+      body: { admin },
     });
   } else if (type === "user") {
     const userCreated = await UserModel.create(user);

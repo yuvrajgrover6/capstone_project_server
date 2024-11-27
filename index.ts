@@ -17,6 +17,7 @@ import donationRoutes from "./src/modules/donation/route/donation_routes";
 import homepageRoutes from "./src/modules/homepage/routes/homepage_route";
 import userRoutes from "./src/modules/user/route/user_routes";
 import paymentRoutes from "./src/modules/payment/route/transactions_routes";
+import adminRoutes from "./src/modules/admin/routes/admin_routes";
 app.use(cors());
 
 const url = `mongodb://localhost:27017/capstone`;
@@ -57,6 +58,7 @@ const routeConfig = [
   { base: "/homepage", routes: homepageRoutes },
   { base: "/user", routes: userRoutes },
   { base: "/payment", routes: paymentRoutes },
+  { base: "/admin", routes: adminRoutes },
 ];
 
 routeConfig.forEach((route) => {
