@@ -8,6 +8,7 @@ interface IPost {
   like_count: number;
   comment_count: number;
   imageUrl?: string;
+  isReported?: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -21,6 +22,7 @@ const PostSchema = new Schema(
     like_count: { type: Number, required: true },
     comment_count: { type: Number, required: true },
     imageUrl: { type: String },
+    isReported: { type: Boolean },
   },
   { timestamps: true }
 );
