@@ -9,7 +9,7 @@ import ArtistModel, {
 import AdminModel, { type IAdminModel } from "../../admin/model/AdminModel";
 
 export default async function (email: string, password: string) {
-  let user: IUserModel | IArtistModel | null;
+  let user: any;
 
   const admin = await AdminModel.findOne({ email });
   if (admin) {
@@ -62,7 +62,7 @@ export default async function (email: string, password: string) {
   } else {
     // sign the token
     const token = jwt.sign(
-      { email: user.email, role: user.type, id: user.id },
+      { email: user.email, role: user.type, id: user._id },
       process.env.JWT_SECRET || "",
       { expiresIn: "2h" }
     );

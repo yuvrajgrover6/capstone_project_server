@@ -24,13 +24,20 @@ export default async (pageNumber: string, pageSize: string, userId: string) => {
   const postsAndLikedStatus: postAndLikedStatus[] = [];
 
   for (const post of posts) {
-    const like = await LikeModel.findOne({ postId: post._id, userId });
-
+    console.log(post._id.toString());
+    console.log(userId + "userId");
+    const like = await LikeModel.findOne({
+      postId: post._id.toString(),
+      userId,
+    });
+    console.log(like);
     postsAndLikedStatus.push({
       post,
       isLikedByUser: like ? true : false,
     });
   }
+
+  console.log(postsAndLikedStatus);
 
   return new SuccessResult({
     code: 200,
