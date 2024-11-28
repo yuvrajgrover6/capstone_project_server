@@ -1,6 +1,8 @@
-import { model, Schema } from "mongoose";
+import { model, Mongoose, Schema } from "mongoose";
+import type { ObjectId } from "mongoose";
 
 interface IUserModel {
+  _id: ObjectId;
   id: string;
   name: string;
   email: string;

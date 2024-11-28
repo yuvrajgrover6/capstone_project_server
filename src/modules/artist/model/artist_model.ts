@@ -1,11 +1,13 @@
 import { Schema, model } from "mongoose";
+import type { ObjectId } from "mongoose";
 
 interface IArtistModel {
-  id: number;
+  _id: ObjectId;
+  id: string;
   name: string;
   email: string;
   password: string;
-  photoUrl: string;
+  photoUrl?: string;
   createdAt: Date;
   type: string;
 }
@@ -14,7 +16,7 @@ interface IArtistModel {
 
 const ArtistSchema = new Schema(
   {
-    id: Number,
+    id: String,
     name: String,
     email: String,
     password: String,

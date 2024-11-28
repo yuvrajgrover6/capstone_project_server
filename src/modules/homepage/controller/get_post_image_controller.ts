@@ -6,7 +6,9 @@ export default (req: Request, res: Response) => {
   const fileName: string = req.query.name?.toString() || "";
   const filePath: string = req.query.path?.toString() || "";
 
-  const file = path.resolve(__dirname, `../../../${path}`);
+  const file = path.resolve(__dirname, `../../../../${filePath}`);
+
+  console.error(fileName, filePath, file);
 
   // Check if the file is a directory
   fs.stat(file, (err, stats) => {

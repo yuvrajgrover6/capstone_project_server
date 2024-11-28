@@ -14,7 +14,7 @@ const uploadPostImage = multer({
     },
     filename: function (req, file, cb) {
       const extension = file.mimetype.split("/")[1];
-      cb(null, `${req.params.postId}.${extension}`);
+      cb(null, `${req.params.postId}.jpg`);
     },
   }),
   fileFilter: (req, file, cb) => {
